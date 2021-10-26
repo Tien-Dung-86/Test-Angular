@@ -1,0 +1,43 @@
+<div class="card mt-2">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+  <div class="card-body">
+    <button class="btn btn-success" (click)="showHideImage()">Show/hideImage</button>
+    <br>
+    <input type="range" min="150" max="300" (change)="changSizeImage($event)">
+    <br>
+    <p>{{imageSize}}</p>
+    <app-input-search (keyword)="searchUser($event)"></app-input-search>
+    <app-message [message]="text"></app-message>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên</th>
+        <th scope="col" [hidden]="showImage">Hình ảnh</th>
+        <th scope="col">Email</th>
+        <th scope="col">Số điện thoại</th>
+        <th scope="col">Địa chỉ</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of userFillter, index as i">
+        <td>{{i + 1}}</td>
+        <td>{{user.name}}</td>
+        <td [hidden]="showImage"><img *ngIf="user.image" [src]="user.image" alt="" [width]="imageSize">
+          <p *ngIf="!user.image">No Image</p>
+        </td>
+        <td>{{user.email}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.address}}</td>
+        <td>
+          <button mat-raised-button (click)="showDetail()">Show Detail</button>
+          <button class="btn btn-danger" (click)="deleteUser(i)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
